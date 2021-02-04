@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.PlatformUI;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -8,8 +7,8 @@ namespace BindingDemo
 {
     class MyShapesViewModel : INotifyPropertyChanged
     {
-        private MyShape shape;
-        public MyShape Shape
+        private MyShapeModel shape;
+        public MyShapeModel Shape
         {
             get { return shape; }
             set
@@ -30,19 +29,19 @@ namespace BindingDemo
         }
 
         #region commands
-        public ObservableCollection<MyShape> MyShapes { get; } = new ObservableCollection<MyShape>();
+        public ObservableCollection<MyShapeModel> MyShapes { get; } = new ObservableCollection<MyShapeModel>();
 
         private ICommand addCommand;
-        public ICommand AddCommand => addCommand ?? (addCommand = new DelegateCommand(AddShape));
+        public ICommand AddCommand => addCommand ?? (addCommand = new AddCommand(i => true, AddShape));
 
-        private void AddShape()
+        private void AddShape(object obj)
         {
-            shape = new MyShape();
+            shape = new MyShapeModel();
             MyShapes.Add(shape);
         }
 
         private ICommand removeCommand;
-        public ICommand RemoveCommand => removeCommand ?? (removeCommand = new DelegateCommand(RemoveShape));
+        public ICommand RemoveCommand => removeCommand ?? (removeCommand = new RemoveCommand(i => true, RemoveShape));
 
         private void RemoveShape(object obj)
         {
@@ -53,27 +52,27 @@ namespace BindingDemo
             }
         }
         private ICommand increaseCommand;
-        public ICommand IncreaseCommand => increaseCommand ?? (increaseCommand = new DelegateCommand(IncreaseRadius));
+        public ICommand IncreaseCommand => increaseCommand ?? (increaseCommand = new AddCommand(i => true, IncreaseRadius));
 
         private void IncreaseRadius(object obj)
         {
             if (Shape != null)
             {
-                Shape.R += 10;
+                Shape.Radius += 10;
             }
         }
 
         private ICommand reduceCommand;
 
-        public ICommand ReduceCommand => reduceCommand ?? (reduceCommand = new DelegateCommand(ReduceRadius));
+        public ICommand ReduceCommand => reduceCommand ?? (reduceCommand = new AddCommand(i => true, ReduceRadius));
 
         private void ReduceRadius(object obj)
         {
             if (Shape != null)
             {
-                if (Shape.R > 10)
+                if (Shape.Radius > 10)
                 {
-                    Shape.R -= 10;
+                    Shape.Radius -= 10;
                 }
             }
         }

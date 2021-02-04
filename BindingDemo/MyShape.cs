@@ -1,42 +1,46 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace BindingDemo
 {
-    class MyShape : INotifyPropertyChanged
+    public sealed class MyShape : Shape
     {
-        private static int id = 1;
-
-        public int Id { get; set; } = id++;
-        public int Top { get; set; } = id * 10;
-        public int Left { get; set; } = id * 10;
-        private int r = 100;
-        public int R
+        public Double Radius
         {
-            get { return r; }
+            get { return (Double)this.GetValue(RadiusProperty); }
             set
             {
-                if (r != value)
-                {
-                    r = value;
-                    NotifyPropertyChanged();
-                }
+                this.SetValue(RadiusProperty, value);
             }
         }
-        public Brush Stroke { get; set; } = randomColor();
+        public static readonly DependencyProperty RadiusProperty = DependencyProperty.Register(
+          "Radius", typeof(Double), typeof(MyShape), new PropertyMetadata(100.0)
+          {
+              PropertyChangedCallback = OnDpChanged
+          });
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+
+        private static void OnDpChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if (e.OldValue != e.NewValue)
+            {
+                // do something
+            }
+
+            // This method calls InvalidateArrange internally. 
+            // After the invalidation, the element will have its layout updated, 
+            // which will occur asynchronously unless subsequently forced by UpdateLayout().
+            ((MyShape)d).InvalidateVisual();
         }
 
-        private static Brush randomColor()
+        protected override Geometry DefiningGeometry
         {
-            Random ran = new Random();
-            return new SolidColorBrush(Color.FromRgb((byte)ran.Next(1, 255), (byte)ran.Next(1, 255), (byte)ran.Next(1, 233)));
+            get
+            {
+                return new EllipseGeometry(new Point(0, 0), this.Radius, this.Radius);
+            }
         }
     }
 }

@@ -16,7 +16,7 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
-        <ItemsControl Grid.Column="1" ItemsSource="{Binding MyShapes}">
+        <ItemsControl x:Name="ic" Grid.Column="1" ItemsSource="{Binding MyShapes}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas/>
@@ -30,7 +30,7 @@
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Ellipse StrokeThickness="4" Width="{Binding R}" Height="{Binding R}" Stroke="{Binding Stroke}" ToolTip="{Binding Id}"/>
+                    <local:MyShape Radius="{Binding Radius}" Stroke="{Binding Stroke}" ToolTip="{Binding Id}" StrokeThickness="4"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
