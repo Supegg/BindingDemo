@@ -32,6 +32,7 @@ namespace BindingDemo
             // This method calls InvalidateArrange internally. 
             // After the invalidation, the element will have its layout updated, 
             // which will occur asynchronously unless subsequently forced by UpdateLayout().
+            // this will occur DefiningGeometry
             ((MyShape)d).InvalidateVisual();
         }
 
@@ -39,7 +40,29 @@ namespace BindingDemo
         {
             get
             {
-                return new EllipseGeometry(new Point(0, 0), this.Radius, this.Radius);
+                int id = (int)this.ToolTip;
+                Geometry geometry = null;
+
+                switch (id % 3)
+                {
+                    case 0:
+                        geometry = new StreamGeometry();
+                        using (StreamGeometryContext ctx = ((StreamGeometry)geometry).Open())
+                        {
+                            ctx.BeginFigure(new Point(Radius * 5, 50), true, true);
+                            ctx.LineTo(new Point(100, Radius * 5), true, false);
+                            ctx.LineTo(new Point(Radius * 5, Radius * 5), true, false);
+                        }
+                        break;
+                    case 1:
+                        geometry = new RectangleGeometry(new Rect(700, 100, Radius * 2, Radius * 2), Radius * 0.1, Radius * 0.1);
+                        break;
+                    case 2:
+                        geometry = new EllipseGeometry(new Point(100, 50), this.Radius * 1.2, this.Radius);
+                        break;
+                }
+
+                return geometry;
             }
         }
     }

@@ -32,7 +32,7 @@ namespace BindingDemo
         public ObservableCollection<MyShapeModel> MyShapes { get; } = new ObservableCollection<MyShapeModel>();
 
         private ICommand addCommand;
-        public ICommand AddCommand => addCommand ?? (addCommand = new AddCommand(i => true, AddShape));
+        public ICommand AddCommand => addCommand ?? (addCommand = new SuCommand(i => true, AddShape));
 
         private void AddShape(object obj)
         {
@@ -41,7 +41,7 @@ namespace BindingDemo
         }
 
         private ICommand removeCommand;
-        public ICommand RemoveCommand => removeCommand ?? (removeCommand = new RemoveCommand(i => true, RemoveShape));
+        public ICommand RemoveCommand => removeCommand ?? (removeCommand = new SuCommand(i => true, RemoveShape));
 
         private void RemoveShape(object obj)
         {
@@ -52,7 +52,7 @@ namespace BindingDemo
             }
         }
         private ICommand increaseCommand;
-        public ICommand IncreaseCommand => increaseCommand ?? (increaseCommand = new AddCommand(i => true, IncreaseRadius));
+        public ICommand IncreaseCommand => increaseCommand ?? (increaseCommand = new SuCommand(i => true, IncreaseRadius));
 
         private void IncreaseRadius(object obj)
         {
@@ -64,7 +64,7 @@ namespace BindingDemo
 
         private ICommand reduceCommand;
 
-        public ICommand ReduceCommand => reduceCommand ?? (reduceCommand = new AddCommand(i => true, ReduceRadius));
+        public ICommand ReduceCommand => reduceCommand ?? (reduceCommand = new SuCommand(i => true, ReduceRadius));
 
         private void ReduceRadius(object obj)
         {
