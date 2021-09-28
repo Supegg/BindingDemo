@@ -15,12 +15,19 @@ namespace BindingDemo
             {
                 if (!object.ReferenceEquals(shape, value))
                 {
+                    if (shape != null)
+                    {
+                        shape.Thickness = 5;
+                    }
                     shape = value;
+                    if (shape != null)
+                    {
+                        shape.Thickness = 10;
+                    }
                     NotifyPropertyChanged();
                 }
             }
         }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
@@ -36,8 +43,8 @@ namespace BindingDemo
 
         private void AddShape(object obj)
         {
-            shape = new MyShapeModel();
-            MyShapes.Add(shape);
+            Shape = new MyShapeModel();
+            MyShapes.Add(Shape);
         }
 
         private ICommand removeCommand;

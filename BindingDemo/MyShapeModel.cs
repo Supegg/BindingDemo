@@ -8,11 +8,32 @@ namespace BindingDemo
     class MyShapeModel : INotifyPropertyChanged
     {
         private static Random ran = new Random();
-        private static int id = 1;
+        private static int count = 0;
 
-        public int Id { get; set; } = id++;
-        public int Top { get; set; } = id * 10;
-        public int Left { get; set; } = id * 10;
+        private int id = 0;
+        public int Id
+        {
+            get { return id; }
+            set
+            {
+                if (id != value)
+                {
+                    id = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        public int Top { get; set; }
+        public int Left { get; set; }
+
+        public MyShapeModel()
+        {
+            count += 1;
+            id = count;
+            Top = id * 10;
+            Left = id * 10;
+        }
+
         private double radius = 100;
         public double Radius
         {
@@ -22,6 +43,19 @@ namespace BindingDemo
                 if (radius != value)
                 {
                     radius = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private int thickness = 10;
+        public int Thickness
+        {
+            get { return thickness; }
+            set
+            {
+                if (thickness != value)
+                {
+                    thickness = value;
                     NotifyPropertyChanged();
                 }
             }

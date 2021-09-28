@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BindingDemo"
+        xmlns:local="clr-namespace:BindingDemo" 
+        d:DataContext="{d:DesignInstance Type=local:MyShapeModel}"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1000" WindowState="Maximized">
     <Window.InputBindings>
@@ -30,7 +31,8 @@
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <local:MyShape Radius="{Binding Radius}" Stroke="{Binding Stroke}" ToolTip="{Binding Id}" StrokeThickness="4"/>
+                    <local:MyShape Radius="{Binding Radius}" Stroke="{Binding Stroke}" StrokeThickness="{Binding Thickness}" 
+                                   ToolTip="{Binding Id}" Tag="{Binding Id}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
