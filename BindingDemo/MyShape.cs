@@ -7,6 +7,10 @@ namespace BindingDemo
 {
     public sealed class MyShape : Shape
     {
+        /// <summary>
+        /// 自定义依赖属性
+        /// 发生变化时重绘视图
+        /// </summary>
         public Double Radius
         {
             get { return (Double)this.GetValue(RadiusProperty); }
@@ -36,6 +40,11 @@ namespace BindingDemo
             ((MyShape)d).InvalidateVisual();
         }
 
+        public MyShape()
+        {
+
+        }
+
         protected override Geometry DefiningGeometry
         {
             get
@@ -58,7 +67,7 @@ namespace BindingDemo
                         geometry = new RectangleGeometry(new Rect(700, 100, Radius * 2, Radius * 2), Radius * 0.1, Radius * 0.1);
                         break;
                     case 2:
-                        geometry = new EllipseGeometry(new Point(100, 50), this.Radius * 1.2, this.Radius);
+                        geometry = new EllipseGeometry(new Point(100, 50), this.Radius, this.Radius);
                         break;
                 }
 

@@ -35,6 +35,11 @@ namespace BindingDemo
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public MyShapesViewModel()
+        {
+
+        }
+
         #region commands
         public ObservableCollection<MyShapeModel> MyShapes { get; } = new ObservableCollection<MyShapeModel>();
 

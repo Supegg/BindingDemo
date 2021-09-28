@@ -23,15 +23,41 @@ namespace BindingDemo
                 }
             }
         }
-        public int Top { get; set; }
-        public int Left { get; set; }
+
+        // 通过一定的计算，对应Shape的几何中心
+        private double top;
+        public double Top
+        {
+            get { return top; }
+            set
+            {
+                if (top != value)
+                {
+                    top = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private double left;
+        public double Left
+        {
+            get { return left; }
+            set
+            {
+                if (left != value)
+                {
+                    left = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
         public MyShapeModel()
         {
             count += 1;
             id = count;
-            Top = id * 10;
-            Left = id * 10;
+            Top = id * 10 - radius;
+            Left = id * 10 - radius;
         }
 
         private double radius = 100;
@@ -43,6 +69,8 @@ namespace BindingDemo
                 if (radius != value)
                 {
                     radius = value;
+                    Top = id * 10 - radius;
+                    Left = id * 10 - radius;
                     NotifyPropertyChanged();
                 }
             }

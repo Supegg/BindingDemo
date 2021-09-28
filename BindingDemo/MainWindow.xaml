@@ -17,25 +17,7 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
-        <ItemsControl x:Name="ic" Grid.Column="1" ItemsSource="{Binding MyShapes}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Canvas/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemContainerStyle>
-                <Style TargetType="ContentPresenter">
-                    <Setter Property="Canvas.Top" Value="{Binding Top}"/>
-                    <Setter Property="Canvas.Left" Value="{Binding Left}"/>
-                </Style>
-            </ItemsControl.ItemContainerStyle>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <local:MyShape Radius="{Binding Radius}" Stroke="{Binding Stroke}" StrokeThickness="{Binding Thickness}" 
-                                   ToolTip="{Binding Id}" Tag="{Binding Id}"/>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <local:SuCanvas x:Name="sc" Grid.Column="1"></local:SuCanvas>
         <DockPanel LastChildFill="True" Grid.Column="2">
             <StackPanel DockPanel.Dock="Bottom" Height="150">
                 <Button Content="Add" Margin="0 15 0 5" Width="100" Command="{Binding AddCommand}"></Button>
