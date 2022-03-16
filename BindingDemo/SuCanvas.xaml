@@ -21,13 +21,14 @@
         5. 按理说所有元素的变换都是针对自身的坐标体系的，而不是针对外部父元素的坐标体系的，但是WPF有个特点，虽然时针对自身坐标系的变化，但是变换前后自身的ActualWidth和ActualHeight都没有发生任何变化，下次继续变换的时候，还是用的ActualWidth和ActualHeigth作为自身坐标系的参考用途，而不是按照变换后的实际尺寸在定位自身坐标系尺寸的。所以，使用外部包装元素的坐标系来给定每次变换的（CenterX和CenterY）才符合视觉效果。
         -->
         <Border x:Name="bdMain" Grid.Row="0" Background="AliceBlue" ClipToBounds="True"
-                MouseMove="bdMain_MouseMove" MouseRightButtonDown="bdMain_MouseDown" MouseRightButtonUp="bdMain_MouseUp">
+                MouseMove="bdMain_MouseMove" MouseRightButtonDown="bdMain_MouseDown" MouseRightButtonUp="bdMain_MouseUp" 
+                MouseWheel="bdMain_MouseWheel">
             <ItemsControl x:Name="ic" ItemsSource="{Binding MyShapes}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Canvas x:Name="cvsMain" Background="AliceBlue" 
                                 Loaded="cvsMain_Loaded" 
-                                MouseMove="cvsMain_MouseMove" MouseWheel="bdMain_MouseWheel"/>
+                                MouseMove="cvsMain_MouseMove"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemContainerStyle>
